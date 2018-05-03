@@ -52,4 +52,21 @@ public class EmployeeController {
 
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  public ResponseEntity updateEmployee(@PathVariable int id, @RequestBody Employee body) {
+
+    employees = employees.stream()
+        .map(employee -> {
+          if (employee.getId() == id) {
+            employee.setName(body.getName());
+            employee.setAge(body.getAge());
+            employee.setGender(body.getGender());
+          }
+
+          return employee;
+        })
+        .collect(Collectors.toList());
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
 }
