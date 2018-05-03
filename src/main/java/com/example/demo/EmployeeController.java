@@ -23,4 +23,10 @@ public class EmployeeController {
 
     return new ResponseEntity(HttpStatus.CREATED);
   }
+
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  public ResponseEntity getAllEmployees() {
+
+    return new ResponseEntity<>(employees, HttpStatus.OK);
+  }
 }
