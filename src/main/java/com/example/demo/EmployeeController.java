@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "employees")
@@ -40,5 +41,15 @@ public class EmployeeController {
     }
 
     return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  public ResponseEntity deleteEmployee(@PathVariable int id) {
+
+    employees = employees.stream()
+        .filter(employee -> employee.getId() != id)
+        .collect(Collectors.toList());
+
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
